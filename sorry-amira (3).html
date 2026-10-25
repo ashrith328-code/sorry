@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For Amira ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#f8d3da; --bg2:#ecd6ef; --bg3:#d3dcf6;
+    --glass:rgba(255,255,255,.55); --glass-line:rgba(255,255,255,.85);
+    --ink:#4a3346; --ink-soft:#7d6278;
+    --rose:#d9577a; --rose-soft:#f3b6c6;
+    --bubble:#fffaf6;
+    --hill:#e8f1dc; --hill-dot:#f6b6c8;
+    --cloud:#c8c2d8; --bokeh:rgba(255,255,255,.55);
+    --petal-op:.75; --star-op:0;
+    color-scheme:light;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg1:#1d1631; --bg2:#2d2049; --bg3:#3c2a56;
+      --glass:rgba(42,28,70,.55); --glass-line:rgba(255,255,255,.12);
+      --ink:#f8e9f3; --ink-soft:#cdb6cf;
+      --rose:#e66a8c; --rose-soft:#8a4a6a;
+      --bubble:#fff6f8;
+      --hill:#3b3263; --hill-dot:#c9839f;
+      --cloud:#6e6790; --bokeh:rgba(255,190,220,.14);
+      --petal-op:.45; --star-op:1;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg1:#1d1631; --bg2:#2d2049; --bg3:#3c2a56;
+    --glass:rgba(42,28,70,.55); --glass-line:rgba(255,255,255,.12);
+    --ink:#f8e9f3; --ink-soft:#cdb6cf;
+    --rose:#e66a8c; --rose-soft:#8a4a6a;
+    --bubble:#fff6f8;
+    --hill:#3b3263; --hill-dot:#c9839f;
+    --cloud:#6e6790; --bokeh:rgba(255,190,220,.14);
+    --petal-op:.45; --star-op:1;
+    color-scheme:dark;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+  body{
+    margin:0;min-height:100%;
+    font-family:"Cormorant Garamond","Georgia","Times New Roman",serif;
+    color:var(--ink);
+    background:linear-gradient(165deg,var(--bg1) 0%,var(--bg2) 50%,var(--bg3) 100%);
+    background-attachment:fixed;
+    overflow-x:hidden;
+    display:flex;align-items:center;justify-content:center;
+    padding:18px 14px;
+  }
+
+  /* ---------- ambience ---------- */
+  .ambience{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+  .bokeh{position:absolute;border-radius:50%;background:radial-gradient(circle,var(--bokeh),transparent 70%);
+    animation:drift 18s ease-in-out infinite alternate}
+  @keyframes drift{to{transform:translate(30px,-40px) scale(1.15)}}
+  .star{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;opacity:var(--star-op);
+    animation:twinkle 3.5s infinite ease-in-out}
+  @keyframes twinkle{50%{opacity:calc(var(--star-op)*.25)}}
+  .petal{position:absolute;top:-20px;width:12px;height:12px;opacity:var(--petal-op);
+    background:linear-gradient(135deg,#ffd3df,#f48fae);border-radius:100% 0 100% 0;
+    animation:petalfall linear infinite}
+  @keyframes petalfall{
+    0%{transform:translate(0,0) rotate(0)}
+    25%{transform:translate(30px,28vh) rotate(90deg)}
+    50%{transform:translate(-18px,56vh) rotate(190deg)}
+    75%{transform:translate(26px,84vh) rotate(280deg)}
+    100%{transform:translate(-8px,112vh) rotate(380deg)}
+  }
+
+  /* ---------- card ---------- */
+  main{
+    position:relative;z-index:2;width:100%;max-width:470px;
+    background:var(--glass);border:1px solid var(--glass-line);
+    border-radius:36px;padding:26px 18px 26px;text-align:center;
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    box-shadow:0 24px 70px rgba(110,50,110,.16);
+  }
+  h1{font-weight:600;font-style:italic;font-size:clamp(2.6rem,10vw,3.3rem);line-height:1;margin:0;letter-spacing:-.01em}
+  .from{margin:6px 0 0;font-size:1.1rem;font-style:italic;color:var(--ink-soft)}
+
+  /* ---------- stage ---------- */
+  .stage{position:relative;display:flex;justify-content:center;align-items:flex-end;
+    gap:2px;padding-top:140px;margin:4px auto 0;max-width:400px}
+  .hill{position:absolute;left:-4%;width:108%;bottom:-8px;height:54px;z-index:0}
+  .rainbow{position:absolute;left:8%;width:84%;top:56px;z-index:0;opacity:0;transform:scale(.9);
+    transition:opacity 1.4s ease .4s,transform 1.4s ease .4s}
+  .stage.happy .rainbow{opacity:.75;transform:none}
+  .char{position:relative;z-index:1;width:45%;cursor:pointer;
+    transition:transform 1s cubic-bezier(.34,1.4,.64,1);-webkit-tap-highlight-color:transparent}
+  .char svg.figure{width:100%;height:auto;display:block;overflow:visible}
+  .char:focus-visible{outline:2px dashed var(--rose);outline-offset:6px;border-radius:24px}
+  .name{font-style:italic;font-weight:600;font-size:1.25rem;margin-top:-2px;position:relative;z-index:2}
+  .stage.happy .boy{transform:translateX(14px)}
+  .stage.happy .girl{transform:translateX(-14px)}
+
+  .raincloud{position:absolute;left:50%;top:-128px;width:84px;transform:translateX(-50%);
+    transition:opacity .8s,transform .8s}
+  .raincloud svg{width:100%;display:block;overflow:visible}
+  .raincloud .drop{animation:rain .8s linear infinite}
+  .raincloud .drop:nth-of-type(2){animation-delay:.25s}
+  .raincloud .drop:nth-of-type(3){animation-delay:.5s}
+  @keyframes rain{0%{transform:translateY(0);opacity:0}20%{opacity:1}100%{transform:translateY(22px);opacity:0}}
+  .stage.happy .raincloud{opacity:0;transform:translate(-50%,-20px)}
+
+  .bubble{position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%) scale(0);width:max-content;max-width:150px;text-align:center;line-height:1.15;
+    background:var(--bubble);color:#4a3346;padding:7px 14px;border-radius:16px;
+    font-style:italic;font-weight:600;font-size:1.08rem;z-index:3;
+    box-shadow:0 6px 18px rgba(90,40,90,.14)}
+  .boy .bubble{left:42%}
+  .girl .bubble{left:58%}
+  .bubble::after{content:"";position:absolute;left:50%;bottom:-6px;width:12px;height:12px;
+    background:var(--bubble);transform:translateX(-50%) rotate(45deg);border-radius:2px}
+  .bubble.pop{animation:pop .45s cubic-bezier(.34,1.56,.64,1) forwards}
+  @keyframes pop{from{transform:translateX(-50%) scale(0)}to{transform:translateX(-50%) scale(1)}}
+
+  .mid-heart{position:absolute;left:50%;top:150px;width:30px;z-index:2;
+    transform:translateX(-50%) scale(0);transition:transform .8s cubic-bezier(.34,1.56,.64,1) .7s}
+  .mid-heart svg{display:block;width:100%}
+  .stage.happy .mid-heart{transform:translateX(-50%) scale(1)}
+  .stage.happy .mid-heart svg{animation:beat 1.2s infinite 1.5s}
+  @keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.2)}30%{transform:scale(1)}45%{transform:scale(1.1)}}
+
+  /* face/pose states */
+  .b-happy,.g-soft,.g-happy{display:none}
+  .stage.happy .b-sad{display:none}
+  .stage.happy .b-happy{display:inline}
+  .stage.soft .g-angry{display:none}
+  .stage.soft .g-soft{display:inline}
+  .stage.happy .g-angry,.stage.happy .g-soft,.stage.happy .g-cross{display:none}
+  .stage.happy .g-happy{display:inline}
+
+  .boy-body,.girl-body,.g-head{transform-box:fill-box;transform-origin:50% 100%}
+  .stage:not(.happy) .boy-body{animation:sob .8s infinite ease-in-out}
+  .stage.sob .boy-body{animation-duration:.4s}
+  @keyframes sob{50%{transform:translateY(2px) scaleY(.985)}}
+  .tear{animation:drip 1.2s infinite ease-in;transform-box:fill-box}
+  .tear.t2{animation-delay:.6s}
+  .stage.sob .tear{animation-duration:.6s}
+  @keyframes drip{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(60px);opacity:0}}
+  .tremble{transform-box:fill-box;transform-origin:center;animation:tremble .45s infinite}
+  @keyframes tremble{50%{transform:scaleX(1.12) scaleY(.85)}}
+
+  .g-head{transition:transform .8s ease}
+  .stage:not(.soft):not(.happy) .g-head{transform:rotate(5deg)}
+  .puff{animation:puff 2.4s infinite ease-out;transform-box:fill-box;transform-origin:left center}
+  @keyframes puff{0%,40%{opacity:0;transform:scale(.4)}55%{opacity:.95;transform:scale(1)}100%{opacity:0;transform:translateX(10px) scale(1.2)}}
+  .stage.happy .girl-body,.stage.happy .boy-body{animation:hop 1s infinite ease-in-out}
+  .stage.happy .boy-body{animation-delay:.25s}
+  @keyframes hop{50%{transform:translateY(-6px)}}
+
+  /* ---------- message ---------- */
+  .msg{font-style:italic;font-weight:500;font-size:clamp(1.35rem,5.4vw,1.6rem);line-height:1.3;
+    min-height:4em;margin:22px auto 4px;max-width:30ch;display:flex;align-items:center;justify-content:center}
+
+  /* ---------- envelope ---------- */
+  .extra{display:flex;justify-content:center}
+  .envelope{position:relative;width:240px;height:172px;margin:6px auto 10px;perspective:900px;
+    animation:rise .7s cubic-bezier(.34,1.4,.64,1)}
+  @keyframes rise{from{transform:translateY(20px);opacity:0}}
+  .env-back{position:absolute;inset:0;background:#e3a2b2;border-radius:10px;z-index:0}
+  .env-letter{position:absolute;left:14px;right:14px;top:10px;height:146px;z-index:2;
+    background:#fffaf3;border-radius:6px;padding-top:12px;
+    font-family:"Dancing Script",cursive;font-size:1.25rem;color:#a24d68;
+    box-shadow:0 2px 8px rgba(120,50,80,.12);
+    transition:transform .9s cubic-bezier(.3,1.3,.5,1) .45s}
+  .env-front{position:absolute;inset:0;z-index:3;background:#f2bccb;border-radius:10px;
+    clip-path:polygon(0 0,50% 50%,100% 0,100% 100%,0 100%)}
+  .env-front span{position:absolute;bottom:10px;left:0;right:0;font-family:"Dancing Script",cursive;
+    font-size:1.35rem;font-weight:600;color:#9b4462}
+  .env-flap{position:absolute;inset:0 0 auto 0;height:100%;z-index:4;background:#ecadbd;
+    border-radius:10px 10px 0 0;clip-path:polygon(0 0,100% 0,50% 52%);
+    transform-origin:top center;transition:transform .6s ease,z-index 0s .3s}
+  .envelope.open .env-flap{transform:rotateX(180deg);z-index:1}
+  .envelope.open .env-letter{transform:translateY(-70px)}
+  .seal{position:absolute;left:50%;top:50%;width:50px;height:50px;margin:-25px 0 0 -25px;z-index:5;
+    border:none;border-radius:50%;cursor:pointer;display:grid;place-items:center;
+    background:radial-gradient(circle at 35% 30%,#e9708f,#b23452 70%);
+    box-shadow:0 4px 12px rgba(150,40,70,.35),inset 0 -3px 6px rgba(0,0,0,.18);
+    animation:sealPulse 1.8s infinite ease-in-out;transition:opacity .3s,transform .3s}
+  .seal svg{width:22px}
+  .seal:focus-visible{outline:2px solid #fff;outline-offset:4px}
+  @keyframes sealPulse{50%{transform:scale(1.08)}}
+  .envelope.open .seal{animation:none;opacity:0;transform:scale(.4);pointer-events:none}
+
+  /* ---------- letter overlay ---------- */
+  .overlay{position:fixed;inset:0;z-index:80;display:grid;place-items:center;
+    padding:calc(20px + env(safe-area-inset-top,0px)) 16px calc(20px + env(safe-area-inset-bottom,0px));
+    background:rgba(70,30,60,.32);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    opacity:0;pointer-events:none;transition:opacity .45s}
+  .overlay.show{opacity:1;pointer-events:auto}
+  .paper{position:relative;width:min(440px,100%);max-height:100%;overflow:auto;
+    background-color:#fffaf3;
+    background-image:repeating-linear-gradient(180deg,transparent 0 33px,rgba(217,87,122,.14) 33px 34px);
+    background-position:0 30px;
+    border-radius:8px;padding:30px 26px 22px;color:#4a3346;text-align:left;
+    font-family:"Dancing Script",cursive;font-size:1.32rem;line-height:34px;
+    box-shadow:0 30px 70px rgba(60,20,50,.35);
+    transform:translateY(30px) rotate(-1deg) scale(.96);transition:transform .6s cubic-bezier(.3,1.3,.5,1)}
+  .overlay.show .paper{transform:none}
+  .paper p{margin:0 0 17px}
+  .paper .pressed{position:absolute;top:10px;right:12px;width:52px;opacity:.9}
+  .sign{opacity:0;transition:opacity .8s;text-align:right;font-weight:700;white-space:pre-line}
+  .sign.show{opacity:1}
+  .paper-actions{display:flex;justify-content:center;margin-top:10px;min-height:52px;
+    font-family:"Cormorant Garamond",serif}
+  .skip{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:.95rem;color:#a08896;text-align:center;margin:0}
+
+  /* ---------- buttons ---------- */
+  .controls{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;min-height:56px;align-items:center}
+  .btn{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;font-size:1.25rem;
+    border:none;cursor:pointer;padding:11px 28px;border-radius:999px;
+    transition:transform .35s cubic-bezier(.34,1.56,.64,1),left .4s ease,top .4s ease,background .3s;
+    -webkit-tap-highlight-color:transparent;white-space:nowrap}
+  .btn.primary{background:var(--rose);color:#fff;box-shadow:0 8px 22px rgba(217,87,122,.35)}
+  .btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--rose)}
+  .btn:active{filter:brightness(.95)}
+  .btn:focus-visible{outline:2px solid var(--rose);outline-offset:3px}
+  .btn.enter{animation:fadein .5s ease}
+  @keyframes fadein{from{opacity:0;transform:translateY(8px)}}
+
+  .choice{position:relative;width:100%;height:150px}
+  .choice .btn{position:absolute}
+
+  /* ---------- effects ---------- */
+  .shower{position:fixed;top:-30px;z-index:90;pointer-events:none;animation:showerfall linear forwards}
+  .shower.p{width:13px;height:13px;background:linear-gradient(135deg,#ffd3df,#f07fa3);border-radius:100% 0 100% 0}
+  .shower svg{display:block}
+  @keyframes showerfall{
+    0%{transform:translate(0,0) rotate(0)}
+    33%{transform:translate(28px,38vh) rotate(140deg)}
+    66%{transform:translate(-22px,76vh) rotate(260deg)}
+    100%{transform:translate(10px,112vh) rotate(400deg)}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.001s !important}
+    .petal,.bokeh{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="ambience" id="ambience"></div>
+
+<main>
+  <h1 id="title">For Amira</h1>
+  <p class="from" id="from">a little something from Ashrith</p>
+
+  <div class="stage" id="stage">
+    <svg class="rainbow" viewBox="0 0 300 150" aria-hidden="true">
+      <g fill="none" stroke-width="9" stroke-linecap="round">
+        <path d="M20 150 A130 130 0 0 1 280 150" stroke="#ffb3c6"/>
+        <path d="M31 150 A119 119 0 0 1 269 150" stroke="#ffd59e"/>
+        <path d="M42 150 A108 108 0 0 1 258 150" stroke="#fff1a8"/>
+        <path d="M53 150 A97 97 0 0 1 247 150" stroke="#c8ecb8"/>
+        <path d="M64 150 A86 86 0 0 1 236 150" stroke="#b9d8ff"/>
+        <path d="M75 150 A75 75 0 0 1 225 150" stroke="#d9c4ff"/>
+      </g>
+    </svg>
+
+    <!-- ASHRITH -->
+    <div class="char boy" id="boy" tabindex="0" role="button" aria-label="Ashrith">
+      <div class="raincloud" aria-hidden="true">
+        <svg viewBox="0 0 84 56">
+          <g fill="var(--cloud)">
+            <circle cx="26" cy="24" r="14"/><circle cx="44" cy="17" r="17"/><circle cx="62" cy="25" r="13"/>
+            <rect x="14" y="22" width="60" height="16" rx="8"/>
+          </g>
+          <g stroke="#9ad6ff" stroke-width="3" stroke-linecap="round">
+            <line class="drop" x1="28" y1="42" x2="26" y2="48"/>
+            <line class="drop" x1="44" y1="42" x2="42" y2="48"/>
+            <line class="drop" x1="60" y1="42" x2="58" y2="48"/>
+          </g>
+        </svg>
+      </div>
+      <div class="bubble" id="boyBubble"></div>
+      <svg class="figure" viewBox="0 0 200 300" aria-hidden="true">
+        <ellipse cx="100" cy="290" rx="44" ry="6" fill="rgba(60,30,60,.10)"/>
+        <g class="boy-body">
+          <rect x="82" y="222" width="16" height="58" rx="8" fill="#6b5446"/>
+          <rect x="102" y="222" width="16" height="58" rx="8" fill="#6b5446"/>
+          <ellipse cx="89" cy="282" rx="13" ry="6" fill="#fbf6f0" stroke="#dacfc4" stroke-width="1.5"/>
+          <ellipse cx="111" cy="282" rx="13" ry="6" fill="#fbf6f0" stroke="#dacfc4" stroke-width="1.5"/>
+
+          <!-- sad: right arm down holding a drooping flower -->
+          <g class="b-sad">
+            <path d="M134 168 Q147 196 141 218" stroke="#efdcc5" stroke-width="15" stroke-linecap="round" fill="none"/>
+            <circle cx="141" cy="222" r="7.5" fill="#f7d9bf"/>
+            <path d="M142 224 Q150 238 152 250" stroke="#6fa36b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <g transform="translate(153 255)">
+              <circle cy="-4" r="4.5" fill="#ff9fbc"/><circle cx="4" cy="0" r="4.5" fill="#ff9fbc"/>
+              <circle cy="4" r="4.5" fill="#ff9fbc"/><circle cx="-4" r="4.5" fill="#ff9fbc"/>
+              <circle r="2.6" fill="#ffd34d"/>
+            </g>
+            <path d="M66 168 Q50 146 60 122" stroke="#efdcc5" stroke-width="15" stroke-linecap="round" fill="none"/>
+          </g>
+          <!-- happy: offering the flower -->
+          <g class="b-happy">
+            <path d="M66 168 Q54 194 58 216" stroke="#efdcc5" stroke-width="15" stroke-linecap="round" fill="none"/>
+            <circle cx="58" cy="220" r="7.5" fill="#f7d9bf"/>
+            <path d="M134 166 Q158 162 176 148" stroke="#efdcc5" stroke-width="15" stroke-linecap="round" fill="none"/>
+            <path d="M182 144 Q186 128 190 112" stroke="#6fa36b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <ellipse cx="190" cy="128" rx="5" ry="2.6" fill="#7fb77e" transform="rotate(-35 190 128)"/>
+            <g transform="translate(191 106)">
+              <circle cy="-5.5" r="5.5" fill="#ff9fbc"/><circle cx="5.5" r="5.5" fill="#ff9fbc"/>
+              <circle cy="5.5" r="5.5" fill="#ff9fbc"/><circle cx="-5.5" r="5.5" fill="#ff9fbc"/>
+              <circle r="3.2" fill="#ffd34d"/>
+            </g>
+            <circle cx="180" cy="146" r="7.5" fill="#f7d9bf"/>
+          </g>
+
+          <!-- sweater -->
+          <rect x="64" y="152" width="72" height="76" rx="24" fill="#efdcc5"/>
+          <rect x="64" y="216" width="72" height="12" rx="6" fill="#e3cbb0"/>
+          <path d="M88 154 q12 10 24 0" stroke="#e3cbb0" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M100 194 l-7 -7 a4.2 4.2 0 0 1 7 -5 a4.2 4.2 0 0 1 7 5 z" fill="#e98aa0"/>
+
+          <!-- head -->
+          <circle cx="45" cy="102" r="10" fill="#f7d9bf"/>
+          <circle cx="155" cy="102" r="10" fill="#f7d9bf"/>
+          <circle cx="100" cy="96" r="56" fill="#f7d9bf"/>
+          <path d="M44 98 C40 46 76 30 104 30 C136 30 162 50 156 98 C150 80 140 70 128 66 C130 74 126 78 126 78 C118 68 104 64 92 68 C94 74 90 78 90 78 C84 70 72 70 62 76 C54 81 48 88 44 98Z" fill="#3b2b24"/>
+          <path d="M104 32 C100 18 112 12 117 21" stroke="#3b2b24" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <ellipse cx="72" cy="119" rx="10" ry="5.5" fill="#ff9aac" opacity=".55"/>
+          <ellipse cx="128" cy="119" rx="10" ry="5.5" fill="#ff9aac" opacity=".55"/>
+
+          <!-- sad face: big watery eyes -->
+          <g class="b-sad">
+            <path d="M68 84 L88 77" stroke="#3b2b24" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M112 77 L132 84" stroke="#3b2b24" stroke-width="3.5" stroke-linecap="round"/>
+            <ellipse cx="80" cy="101" rx="9.5" ry="11.5" fill="#2b1d1a"/>
+            <ellipse cx="120" cy="101" rx="9.5" ry="11.5" fill="#2b1d1a"/>
+            <ellipse cx="80" cy="109" rx="9" ry="4" fill="#9ad6ff" opacity=".8"/>
+            <ellipse cx="120" cy="109" rx="9" ry="4" fill="#9ad6ff" opacity=".8"/>
+            <circle cx="83.5" cy="96" r="3.4" fill="#fff"/><circle cx="77" cy="104" r="1.6" fill="#fff"/>
+            <circle cx="123.5" cy="96" r="3.4" fill="#fff"/><circle cx="117" cy="104" r="1.6" fill="#fff"/>
+            <path d="M123 113 q3 16 1 30" stroke="#9ad6ff" stroke-width="4.5" stroke-linecap="round" fill="none" opacity=".75"/>
+            <circle class="tear" cx="124" cy="144" r="4.2" fill="#9ad6ff"/>
+            <circle class="tear t2" cx="84" cy="122" r="3.6" fill="#9ad6ff"/>
+            <g class="tremble">
+              <ellipse cx="100" cy="133" rx="7.5" ry="5.5" fill="#7a3a3f"/>
+              <ellipse cx="100" cy="136" rx="4.5" ry="2.2" fill="#ff8fa3"/>
+            </g>
+            <circle cx="62" cy="120" r="9.5" fill="#f7d9bf" stroke="#ebc3a3" stroke-width="1.5"/>
+          </g>
+          <!-- happy face -->
+          <g class="b-happy">
+            <path d="M71 102 q9 -10 18 0" stroke="#3b2b24" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <path d="M111 102 q9 -10 18 0" stroke="#3b2b24" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <path d="M88 121 q12 16 24 0 z" fill="#7a3a3f"/>
+            <path d="M93 127 q7 5 14 0" fill="#ff8fa3"/>
+          </g>
+        </g>
+      </svg>
+      <div class="name">Ashrith</div>
+    </div>
+
+    <div class="mid-heart" aria-hidden="true">
+      <svg viewBox="0 0 32 30"><path d="M16 29 L3.5 16.5 A7.5 7.5 0 0 1 16 5.5 A7.5 7.5 0 0 1 28.5 16.5 Z" fill="#e66a8c"/><circle cx="10" cy="11" r="2.4" fill="#fff" opacity=".6"/></svg>
+    </div>
+
+    <!-- AMIRA -->
+    <div class="char girl" id="girl" tabindex="0" role="button" aria-label="Amira">
+      <div class="bubble" id="girlBubble"></div>
+      <svg class="figure" viewBox="0 0 200 300" aria-hidden="true">
+        <ellipse cx="100" cy="290" rx="46" ry="6" fill="rgba(60,30,60,.10)"/>
+        <g class="girl-body">
+          <path d="M44 100 C33 160 46 206 62 216 C80 224 120 224 138 216 C154 206 167 160 156 100 Z" fill="#2a1f24"/>
+          <ellipse cx="88" cy="284" rx="10" ry="5" fill="#b04a62"/>
+          <ellipse cx="112" cy="284" rx="10" ry="5" fill="#b04a62"/>
+          <!-- yellow bakhu -->
+          <path d="M68 205 L132 205 L145 282 L55 282 Z" fill="#ffd34d"/>
+          <path d="M117 207 L129 281" stroke="#ecb92c" stroke-width="2.5"/>
+          <path d="M57 269 L143 269 L145 282 L55 282 Z" fill="#f2a63a"/>
+          <g fill="#fff6d6"><circle cx="66" cy="275.5" r="1.8"/><circle cx="78" cy="275.5" r="1.8"/><circle cx="90" cy="275.5" r="1.8"/><circle cx="102" cy="275.5" r="1.8"/><circle cx="114" cy="275.5" r="1.8"/><circle cx="126" cy="275.5" r="1.8"/><circle cx="138" cy="275.5" r="1.8"/></g>
+          <rect x="66" y="199" width="68" height="9" rx="4.5" fill="#d9577a"/>
+          <!-- happy arms -->
+          <g class="g-happy">
+            <path d="M70 162 Q52 170 36 162" stroke="#4f8fdf" stroke-width="14" stroke-linecap="round" fill="none"/>
+            <circle cx="31" cy="160" r="7" fill="#f6d4b8"/>
+            <path d="M130 162 Q144 188 140 210" stroke="#4f8fdf" stroke-width="14" stroke-linecap="round" fill="none"/>
+            <circle cx="140" cy="214" r="7" fill="#f6d4b8"/>
+          </g>
+          <!-- blue top -->
+          <rect x="66" y="150" width="68" height="58" rx="22" fill="#5b9be8"/>
+          <path d="M86 152 L100 176 L114 152" stroke="#3f7ccc" stroke-width="3.5" fill="none" stroke-linejoin="round"/>
+          <path d="M90 152 L100 168 L110 152 Z" fill="#fff"/>
+          <!-- crossed arms -->
+          <g class="g-cross">
+            <rect x="62" y="172" width="76" height="16" rx="8" fill="#4f8fdf"/>
+            <rect x="68" y="182" width="64" height="14" rx="7" fill="#4787d8"/>
+            <circle cx="64" cy="180" r="7" fill="#f6d4b8"/>
+            <circle cx="136" cy="189" r="7" fill="#f6d4b8"/>
+          </g>
+          <rect x="92" y="140" width="16" height="14" rx="5" fill="#ecc3a4"/>
+
+          <g class="g-head">
+            <circle cx="100" cy="96" r="56" fill="#f6d4b8"/>
+            <path d="M44 100 C40 52 74 36 100 36 C128 36 160 52 156 100 C150 84 140 74 128 70 C124 78 112 80 104 76 C96 72 86 72 76 76 C64 82 50 90 44 100Z" fill="#2a1f24"/>
+            <path d="M46 98 C44 124 50 146 58 160" stroke="#2a1f24" stroke-width="9" stroke-linecap="round" fill="none"/>
+            <path d="M154 98 C156 124 150 146 142 160" stroke="#2a1f24" stroke-width="9" stroke-linecap="round" fill="none"/>
+
+            <!-- flower tucked on her ear -->
+            <g transform="translate(153 98)">
+              <ellipse cx="-9" cy="10" rx="9" ry="4" fill="#7fb77e" transform="rotate(35 -9 10)"/>
+              <ellipse cx="9" cy="11" rx="8" ry="3.6" fill="#6aa86d" transform="rotate(-30 9 11)"/>
+              <g fill="#fff0f4" stroke="#f5a3bd" stroke-width="1.2">
+                <ellipse cy="-9" rx="6.5" ry="10"/>
+                <ellipse cy="-9" rx="6.5" ry="10" transform="rotate(72)"/>
+                <ellipse cy="-9" rx="6.5" ry="10" transform="rotate(144)"/>
+                <ellipse cy="-9" rx="6.5" ry="10" transform="rotate(216)"/>
+                <ellipse cy="-9" rx="6.5" ry="10" transform="rotate(288)"/>
+              </g>
+              <circle r="6" fill="#ffb3c8"/>
+              <circle r="3.2" fill="#ffd34d"/>
+            </g>
+
+            <!-- angry: looking away, cheeks puffed -->
+            <g class="g-angry">
+              <path d="M72 86 L92 90" stroke="#2a1f24" stroke-width="3.5" stroke-linecap="round"/>
+              <path d="M110 90 L130 86" stroke="#2a1f24" stroke-width="3.5" stroke-linecap="round"/>
+              <ellipse cx="88" cy="103" rx="7.5" ry="8.5" fill="#2a1d1d"/>
+              <ellipse cx="126" cy="103" rx="7.5" ry="8.5" fill="#2a1d1d"/>
+              <rect x="76" y="92" width="22" height="7" fill="#f6d4b8"/>
+              <rect x="114" y="92" width="22" height="7" fill="#f6d4b8"/>
+              <path d="M77 99 L98 99 M115 99 L136 99" stroke="#2a1f24" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="90" cy="104" r="2" fill="#fff"/><circle cx="128" cy="104" r="2" fill="#fff"/>
+              <ellipse cx="70" cy="120" rx="12" ry="8" fill="#ff8aa2" opacity=".55"/>
+              <ellipse cx="132" cy="120" rx="12" ry="8" fill="#ff8aa2" opacity=".55"/>
+              <path d="M102 130 q5 -4 10 0" stroke="#8b3a46" stroke-width="3" stroke-linecap="round" fill="none"/>
+              <g class="puff" fill="#fff" opacity=".9">
+                <circle cx="124" cy="132" r="4"/><circle cx="131" cy="128" r="5"/><circle cx="138" cy="133" r="4"/>
+              </g>
+            </g>
+            <!-- softening: glancing at him -->
+            <g class="g-soft">
+              <path d="M72 86 q9 -4 18 0 M110 86 q9 -4 18 0" stroke="#2a1f24" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+              <ellipse cx="80" cy="103" rx="8" ry="10" fill="#2a1d1d"/>
+              <ellipse cx="118" cy="103" rx="8" ry="10" fill="#2a1d1d"/>
+              <circle cx="82" cy="99" r="3" fill="#fff"/><circle cx="120" cy="99" r="3" fill="#fff"/>
+              <path d="M71 97 l-4 -3 M127 97 l4 -3" stroke="#2a1f24" stroke-width="2.2" stroke-linecap="round"/>
+              <ellipse cx="70" cy="120" rx="11" ry="6" fill="#ff8aa2" opacity=".55"/>
+              <ellipse cx="130" cy="120" rx="11" ry="6" fill="#ff8aa2" opacity=".55"/>
+              <path d="M94 129 q6 3 12 0" stroke="#8b3a46" stroke-width="3" stroke-linecap="round" fill="none"/>
+            </g>
+            <!-- happy -->
+            <g class="g-happy">
+              <path d="M72 103 q8 -9 16 0" stroke="#2a1f24" stroke-width="4" stroke-linecap="round" fill="none"/>
+              <path d="M112 103 q8 -9 16 0" stroke="#2a1f24" stroke-width="4" stroke-linecap="round" fill="none"/>
+              <path d="M70 98 l-4 -3 M130 98 l4 -3" stroke="#2a1f24" stroke-width="2.2" stroke-linecap="round"/>
+              <ellipse cx="70" cy="118" rx="10" ry="5.5" fill="#ff8aa2" opacity=".6"/>
+              <ellipse cx="130" cy="118" rx="10" ry="5.5" fill="#ff8aa2" opacity=".6"/>
+              <path d="M89 122 q11 14 22 0 z" fill="#8b3a46"/>
+            </g>
+          </g>
+        </g>
+      </svg>
+      <div class="name">Amira</div>
+    </div>
+
+    <svg class="hill" viewBox="0 0 400 54" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 54 C80 6 320 6 400 54 Z" fill="var(--hill)"/>
+      <g fill="var(--hill-dot)">
+        <circle cx="70" cy="36" r="2.2"/><circle cx="110" cy="28" r="1.8"/><circle cx="160" cy="22" r="2"/>
+        <circle cx="240" cy="22" r="2"/><circle cx="290" cy="28" r="1.8"/><circle cx="330" cy="37" r="2.2"/>
+        <circle cx="200" cy="40" r="1.8"/><circle cx="140" cy="44" r="1.6"/><circle cx="262" cy="44" r="1.6"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="msg" id="msg" aria-live="polite"></div>
+  <div class="extra" id="extra"></div>
+  <div class="controls" id="controls"></div>
+</main>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Ashrith’s letter">
+  <article class="paper" id="paper">
+    <svg class="pressed" viewBox="0 0 60 60" aria-hidden="true">
+      <path d="M30 58 Q28 40 30 26" stroke="#8cb58a" stroke-width="2" fill="none"/>
+      <ellipse cx="22" cy="44" rx="7" ry="3" fill="#a9cba5" transform="rotate(30 22 44)"/>
+      <g transform="translate(30 20)" fill="#ffd3df" stroke="#f0a0b8" stroke-width="1">
+        <ellipse cy="-7" rx="5" ry="8"/><ellipse cy="-7" rx="5" ry="8" transform="rotate(72)"/>
+        <ellipse cy="-7" rx="5" ry="8" transform="rotate(144)"/><ellipse cy="-7" rx="5" ry="8" transform="rotate(216)"/>
+        <ellipse cy="-7" rx="5" ry="8" transform="rotate(288)"/>
+        <circle r="3" fill="#ffd34d" stroke="none"/>
+      </g>
+    </svg>
+    <div id="paperText"></div>
+    <p class="sign" id="sign">Your very sorry,
+Ashrith ♡</p>
+    <div class="paper-actions" id="paperActions"></div>
+    <p class="skip" id="skip">tap the letter to read faster</p>
+  </article>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const msg = $('msg'), controls = $('controls'), stage = $('stage'), extra = $('extra');
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+  /* ---- ambience ---- */
+  const amb = $('ambience');
+  [[8,12,220],[70,8,260],[40,70,300],[85,60,200],[5,80,240],[55,35,180]].forEach(([x,y,s],i)=>{
+    const b = document.createElement('div');
+    b.className = 'bokeh';
+    Object.assign(b.style,{left:x+'%',top:y+'%',width:s+'px',height:s+'px',animationDelay:(-i*3)+'s'});
+    amb.appendChild(b);
+  });
+  for (let i = 0; i < 45; i++) {
+    const s = document.createElement('span');
+    s.className = 'star';
+    Object.assign(s.style,{left:Math.random()*100+'%',top:Math.random()*70+'%',animationDelay:Math.random()*3.5+'s'});
+    amb.appendChild(s);
+  }
+  for (let i = 0; i < 14; i++) {
+    const p = document.createElement('span');
+    p.className = 'petal';
+    const size = 8 + Math.random()*8;
+    Object.assign(p.style,{left:Math.random()*100+'%',width:size+'px',height:size+'px',
+      animationDuration:(14+Math.random()*12)+'s',animationDelay:(-Math.random()*24)+'s'});
+    amb.appendChild(p);
+  }
+
+  /* ---- helpers ---- */
+  let typingId = 0;
+  async function type(text){
+    const id = ++typingId;
+    msg.textContent = '';
+    for (const ch of Array.from(text)) {
+      if (id !== typingId) return false;
+      msg.textContent += ch;
+      await sleep(34);
+    }
+    return id === typingId;
+  }
+  function bubble(who, text){
+    const b = $(who + 'Bubble');
+    b.textContent = text;
+    b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop');
+  }
+  function button(label, cls, onClick, parent){
+    const b = document.createElement('button');
+    b.className = 'btn enter ' + (cls || '');
+    b.textContent = label;
+    b.addEventListener('click', onClick);
+    (parent || controls).appendChild(b);
+    return b;
+  }
+  function clear(){ controls.innerHTML = ''; extra.innerHTML = ''; }
+
+  const heartSVG = c => `<svg viewBox="0 0 32 30" width="100%"><path d="M16 29 L3.5 16.5 A7.5 7.5 0 0 1 16 5.5 A7.5 7.5 0 0 1 28.5 16.5 Z" fill="${c}"/></svg>`;
+  function shower(){
+    const colors = ['#e66a8c','#f3a0b8','#ffd34d','#5b9be8','#ffc1d3'];
+    for (let i = 0; i < 60; i++) {
+      const s = document.createElement('span');
+      const isPetal = i % 3 !== 0;
+      s.className = 'shower' + (isPetal ? ' p' : '');
+      if (!isPetal) { const w = 12 + Math.random()*12; s.style.width = w + 'px'; s.innerHTML = heartSVG(colors[i % colors.length]); }
+      const dur = 3.5 + Math.random()*3;
+      Object.assign(s.style,{left:Math.random()*100+'vw',animationDuration:dur+'s',animationDelay:Math.random()*1.8+'s'});
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), (dur + 2)*1000);
+    }
+  }
+
+  /* ---- tapping characters ---- */
+  const lines = {
+    boySad:['Amira…','*sniff*','I’m really sorry','Please don’t be mad'],
+    boyHappy:['Thank you, Amira ♡','This is for you','Best day ever'],
+    girlAngry:['Hmph.','Not talking to you.','…','Still angry.'],
+    girlSoft:['…hmm.','Maybe.','Keep going…'],
+    girlHappy:['Hehe ♡','You’re lucky I like you','Okay, okay']
+  };
+  let bi = 0, gi = 0;
+  function tapBoy(){ const l = stage.classList.contains('happy') ? lines.boyHappy : lines.boySad; bubble('boy', l[bi++ % l.length]); }
+  function tapGirl(){
+    const l = stage.classList.contains('happy') ? lines.girlHappy : stage.classList.contains('soft') ? lines.girlSoft : lines.girlAngry;
+    bubble('girl', l[gi++ % l.length]);
+  }
+  [['boy',tapBoy],['girl',tapGirl]].forEach(([id,fn])=>{
+    $(id).addEventListener('click', fn);
+    $(id).addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } });
+  });
+
+  /* ---- 1. intro ---- */
+  async function intro(){
+    clear();
+    stage.classList.remove('happy','soft','sob');
+    $('title').textContent = 'For Amira';
+    $('from').textContent = 'a little something from Ashrith';
+    bubble('boy', 'Amira…');
+    setTimeout(() => bubble('girl', 'Hmph.'), 500);
+    if (await type('Amira, someone has something he really needs to tell you.')) {
+      button('Let him speak', 'primary', envelopeScene);
+    }
+  }
+
+  /* ---- 2. envelope ---- */
+  async function envelopeScene(){
+    clear();
+    bubble('boy', 'This is for you…');
+    const env = document.createElement('div');
+    env.className = 'envelope';
+    env.innerHTML = `
+      <div class="env-back"></div>
+      <div class="env-letter">for you</div>
+      <div class="env-front"><span>To Amira ♡</span></div>
+      <div class="env-flap"></div>
+      <button class="seal" aria-label="Open the letter">
+        <svg viewBox="0 0 32 30"><path d="M16 29 L3.5 16.5 A7.5 7.5 0 0 1 16 5.5 A7.5 7.5 0 0 1 28.5 16.5 Z" fill="#ffd9e3"/></svg>
+      </button>`;
+    extra.appendChild(env);
+    env.querySelector('.seal').addEventListener('click', () => {
+      env.classList.add('open');
+      bubble('girl', '…');
+      setTimeout(openLetter, 1300);
+    }, { once:true });
+    type('He wrote you a letter. Tap the seal to open it.');
+  }
+
+  /* ---- letter ---- */
+  const letter = [
+    'Dear Amira,',
+    'I’m sorry. I know I hurt you, and that was never what I wanted. You mean so much to me, and seeing you upset is the last thing I ever want.',
+    'I’m not going to make excuses. I just want you to know that I care about you more than I can put into words, and I’ll always keep trying to be better for you.',
+    'Please forgive me. Nothing feels quite right when we’re not okay.'
+  ];
+  let fast = false, letterRead = false;
+  const overlay = $('overlay'), paper = $('paper'), paperText = $('paperText');
+  paper.addEventListener('click', e => { if (!e.target.closest('button')) fast = true; });
+
+  async function openLetter(){
+    overlay.classList.add('show');
+    paperText.innerHTML = '';
+    $('sign').classList.remove('show');
+    $('paperActions').innerHTML = '';
+    $('skip').style.visibility = letterRead ? 'hidden' : 'visible';
+    fast = letterRead;
+    await sleep(400);
+    for (const para of letter) {
+      const p = document.createElement('p');
+      paperText.appendChild(p);
+      for (const ch of Array.from(para)) {
+        if (fast) { p.textContent = para; break; }
+        p.textContent += ch;
+        await sleep(26);
+      }
+      if (!fast) await sleep(250);
+    }
+    $('sign').classList.add('show');
+    $('skip').style.visibility = 'hidden';
+    await sleep(fast ? 100 : 700);
+    const close = button(letterRead ? 'Close the letter' : 'Fold it back', 'primary', closeLetter, $('paperActions'));
+    close.focus({ preventScroll:true });
+  }
+  function closeLetter(){
+    overlay.classList.remove('show');
+    if (letterRead) return;
+    letterRead = true;
+    setTimeout(question, 450);
+  }
+
+  /* ---- 3. the question ---- */
+  const noTexts = ['No','Are you sure?','Think again…','He’s crying harder','Pretty please?','Last chance'];
+  const begs = ['*sniff*','Pleaseee','Amiraaa…','*sobs*','I’m really sorry'];
+  async function question(){
+    clear();
+    stage.classList.add('soft');
+    bubble('girl', '…');
+    setTimeout(() => bubble('boy', 'Please?'), 500);
+    if (!(await type('So… will you forgive Ashrith?'))) return;
+
+    const zone = document.createElement('div');
+    zone.className = 'choice';
+    controls.appendChild(zone);
+    const yes = button('Yes ♡', 'primary', celebrate, zone);
+    const no = button(noTexts[0], 'ghost', dodge, zone);
+
+    const place = () => {
+      const zw = zone.clientWidth;
+      yes.style.left = (zw/2 - yes.offsetWidth - 8) + 'px'; yes.style.top = '46px';
+      no.style.left = (zw/2 + 8) + 'px'; no.style.top = '46px';
+    };
+    place();
+
+    let n = 0, gaveIn = false;
+    function dodge(){
+      if (gaveIn) { celebrate(); return; }
+      n++;
+      stage.classList.add('sob');
+      bubble('boy', begs[(n - 1) % begs.length]);
+      yes.style.transform = 'scale(' + (1 + n*0.12) + ')';
+      if (n >= noTexts.length) {
+        gaveIn = true;
+        no.textContent = 'Okay, yes ♡';
+        no.className = 'btn primary';
+        yes.style.transform = '';
+        place();
+        return;
+      }
+      no.textContent = noTexts[n];
+      const zw = zone.clientWidth, zh = zone.clientHeight;
+      const nw = no.offsetWidth, nh = no.offsetHeight;
+      const yr = { l: yes.offsetLeft - 20, t: yes.offsetTop - 20, r: yes.offsetLeft + yes.offsetWidth*(1+n*0.12) + 20, b: yes.offsetTop + yes.offsetHeight*(1+n*0.12) + 20 };
+      const curL = no.offsetLeft, curT = no.offsetTop;
+      let x = 0, y = 0;
+      for (let k = 0; k < 30; k++) {
+        x = Math.random() * Math.max(0, zw - nw);
+        y = Math.random() * Math.max(0, zh - nh);
+        const overlaps = x < yr.r && x + nw > yr.l && y < yr.b && y + nh > yr.t;
+        const moved = Math.abs(x - curL) + Math.abs(y - curT) > 60;
+        if (!overlaps && moved) break;
+      }
+      no.style.left = x + 'px'; no.style.top = y + 'px';
+    }
+    if (window.matchMedia('(hover: hover)').matches) {
+      no.addEventListener('pointerenter', () => { if (!gaveIn) dodge(); });
+    }
+    window.addEventListener('resize', () => { if (zone.isConnected && n === 0) place(); });
+  }
+
+  /* ---- 4. forgiven ---- */
+  async function celebrate(){
+    clear();
+    stage.classList.remove('sob','soft');
+    stage.classList.add('happy');
+    $('title').textContent = 'Forgiven ♡';
+    $('from').textContent = 'Amira & Ashrith';
+    shower();
+    bubble('boy', 'Thank you ♡');
+    setTimeout(() => bubble('girl', 'Forgiven ♡'), 800);
+    if (await type('He promises to make it up to you. Now go talk to him.')) {
+      button('Read the letter again', 'ghost', openLetter);
+      button('More petals', 'primary', shower);
+    }
+  }
+
+  intro();
+})();
+</script>
+</body>
+</html>
